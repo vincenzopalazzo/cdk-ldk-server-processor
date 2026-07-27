@@ -1,0 +1,21 @@
+[package]
+name = "cdk-ldk-server-processor"
+version = "0.1.0"
+edition = "2021"
+description = "CDK gRPC payment processor backed by an external ldk-server daemon"
+license = "MIT"
+
+# All cdk crates come from the same git revision so cdk-common types unify.
+# This binary is never published to crates.io, so git dependencies are fine
+# (that is the whole point of the payment-processor architecture: cdk-mintd
+# only needs the published cdk-payment-processor client).
+[dependencies]
+anyhow = "1"
+async-trait = "0.1"
+cdk-common = { git = "https://github.com/hedwig-corp/cdk", rev = "6d04ade2fc3ec7ef3e62fcb90bc2e75152d4a9d0", default-features = false, features = ["mint", "grpc"] }
+cdk-payment-processor = { git = "https://github.com/hedwig-corp/cdk", rev = "6d04ade2fc3ec7ef3e62fcb90bc2e75152d4a9d0", default-features = false }
+cdk-ldk-server = { git = "https://github.com/hedwig-corp/cdk", rev = "6d04ade2fc3ec7ef3e62fcb90bc2e75152d4a9d0" }
+serde = { version = "1", features = ["derive"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "signal"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
