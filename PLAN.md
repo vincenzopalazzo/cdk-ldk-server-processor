@@ -16,7 +16,7 @@ exists upstream — no fork of cdk-mintd needed.
 
 ```
 cdk-mintd (stock upstream, feature grpc-processor)
-   |  gRPC (CDK payment processor protocol, port 50051)
+   |  gRPC (CDK payment processor protocol, port 50071)
    v
 cdk-ldk-server-processor  <-- this repo (thin wrapper)
    |  gRPC + TLS + API key (ldk-server protocol, port 3536)
@@ -35,7 +35,7 @@ ldk-server daemon (lightningdevkit/ldk-server, with our
    production ldk-server (read-only calls first: get_settings).
 3. **Mint wiring**: build stock cashubtc/cdk cdk-mintd with
    `--features grpc-processor`, config `ln_backend = "grpcprocessor"`,
-   `[grpc_processor] addr = "127.0.0.1", port = 50051, allow_insecure = true`
+   `[grpc_processor] addr = "127.0.0.1", port = 50071, allow_insecure = true`
    (localhost; TLS optional later).
 4. **Deploy on 65.108.246.14**: run processor as a daemon next to ldk-server,
    switch cdk-mintd over, verify BOLT11 + BOLT12 mint/melt quotes end-to-end.
@@ -48,7 +48,7 @@ ldk-server daemon (lightningdevkit/ldk-server, with our
 - `LDK_SERVER_ADDR` (e.g. `65.108.246.14:3536`)
 - `LDK_SERVER_API_KEY` (HMAC key from ldk-server api_key file)
 - `LDK_SERVER_TLS_CERT` (path to PEM cert to pin)
-- `SERVER_PORT` (default 50051)
+- `SERVER_PORT` (default 50071)
 - `FEE_RESERVE_MIN_SAT` (default 2), `FEE_RESERVE_PERCENT` (default 0.01)
 - `MAX_PAYMENT_SCAN_PAGES` (default 32)
 

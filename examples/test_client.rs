@@ -4,7 +4,11 @@ use cdk_common::payment::MintPayment;
 #[tokio::main]
 async fn main() {
     let addr = std::env::var("PROC_ADDR").unwrap_or_else(|_| "127.0.0.1".to_string());
-    let client = cdk_payment_processor::PaymentProcessorClient::new(&addr, 50051, None)
+    let port: u16 = std::env::var("PROC_PORT")
+        .ok()
+        .and_then(|v| v.parse().ok())
+        .unwrap_or(50071);
+    let client = cdk_payment_processor::PaymentProcessorClient::new(&addr, port, None)
         .await
         .expect("connect");
     match client.get_settings().await {

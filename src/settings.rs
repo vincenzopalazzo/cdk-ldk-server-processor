@@ -26,14 +26,18 @@ impl Config {
     /// Read configuration from environment variables.
     ///
     /// Required: `LDK_SERVER_ADDR`, `LDK_SERVER_API_KEY`, `LDK_SERVER_TLS_CERT`.
-    /// Optional: `SERVER_PORT` (50051), `FEE_RESERVE_MIN_SAT` (2),
+    /// Optional: `SERVER_PORT` (50071), `FEE_RESERVE_MIN_SAT` (2),
     /// `FEE_RESERVE_PERCENT` (0.01), `MAX_PAYMENT_SCAN_PAGES` (32).
+    ///
+    /// NB: the default port is 50071, not the CDK-customary 50051, because
+    /// 50051 is a popular gRPC port and a silent bind conflict there is
+    /// hard to diagnose (cdk-payment-processor swallows bind errors).
     pub fn from_env() -> Self {
         Self {
             server_port: std::env::var("SERVER_PORT")
                 .ok()
                 .and_then(|v| v.parse().ok())
-                .unwrap_or(50051),
+                .unwrap_or(50071),
             ldk_server_addr: std::env::var("LDK_SERVER_ADDR")
                 .expect("LDK_SERVER_ADDR is required (e.g. 127.0.0.1:3536)"),
             ldk_server_api_key: std::env::var("LDK_SERVER_API_KEY")
