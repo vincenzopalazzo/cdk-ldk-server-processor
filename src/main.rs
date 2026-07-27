@@ -40,10 +40,15 @@ async fn main() -> Result<()> {
         CdkLdkServer::new(ldk_cfg).context("initializing ldk-server backend")?,
     );
 
-    let server_addr = format!("0.0.0.0:{}", cfg.server_port);
-    tracing::info!("Starting CDK LDK-Server payment processor on {}", server_addr);
+    // NB: addr must be a bare IP; the port is passed separately.
+    let server_ip = "0.0.0.0";
+    tracing::info!(
+        "Starting CDK LDK-Server payment processor on {}:{}",
+        server_ip,
+        cfg.server_port
+    );
 
-    let mut server = PaymentProcessorServer::new(backend, &server_addr, cfg.server_port)?;
+    let mut server = PaymentProcessorServer::new(backend, server_ip, cfg.server_port)?;
     server.start(None).await?;
 
     match shutdown_signal().await {
