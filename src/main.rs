@@ -28,13 +28,13 @@ async fn main() -> Result<()> {
 
     let cert_pem = std::fs::read(&cfg.ldk_server_tls_cert).context("reading ldk-server TLS cert")?;
 
-    let ldk_cfg = LdkServerConfig::new(
+    let mut ldk_cfg = LdkServerConfig::new(
         cfg.ldk_server_addr.clone(),
         cfg.ldk_server_api_key.clone(),
         cert_pem,
         cfg.fee_reserve(),
-        cfg.max_payment_scan_pages,
     );
+    ldk_cfg.max_payment_scan_pages = cfg.max_payment_scan_pages;
 
     let backend = Arc::new(
         CdkLdkServer::new(ldk_cfg).context("initializing ldk-server backend")?,
