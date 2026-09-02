@@ -12,9 +12,9 @@ license = "MIT"
 [dependencies]
 anyhow = "1"
 async-trait = "0.1"
-cdk-common = { git = "https://github.com/hedwig-corp/cdk", rev = "6d04ade2fc3ec7ef3e62fcb90bc2e75152d4a9d0", default-features = false, features = ["mint", "grpc"] }
-cdk-payment-processor = { git = "https://github.com/hedwig-corp/cdk", rev = "6d04ade2fc3ec7ef3e62fcb90bc2e75152d4a9d0", default-features = false }
-cdk-ldk-server = { git = "https://github.com/hedwig-corp/cdk", rev = "6d04ade2fc3ec7ef3e62fcb90bc2e75152d4a9d0" }
+cdk-common = { git = "https://github.com/hedwig-corp/cdk", rev = "5dc06c6d41535f1a955865cd0171cc800cda6854", default-features = false, features = ["mint", "grpc"] }
+cdk-payment-processor = { git = "https://github.com/hedwig-corp/cdk", rev = "5dc06c6d41535f1a955865cd0171cc800cda6854", default-features = false }
+cdk-ldk-server = { git = "https://github.com/hedwig-corp/cdk", rev = "5dc06c6d41535f1a955865cd0171cc800cda6854" }
 serde = { version = "1", features = ["derive"] }
 tokio = { version = "1", features = ["rt-multi-thread", "macros", "signal"] }
 tracing = "0.1"
